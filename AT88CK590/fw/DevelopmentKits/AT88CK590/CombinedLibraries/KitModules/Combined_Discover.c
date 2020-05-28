@@ -359,12 +359,27 @@ uint8_t DetectI2cDevices()
 //		}
 		// We got an address ack from an unknown device.
 //	}
-		i2c_status = DetectI2cCryptoAuth(0xC0 & ~I2C_READ_FLAG);
+		i2c_status = DetectI2cCryptoAuth(0x6C & ~I2C_READ_FLAG);
 		if (i2c_status == I2C_FUNCTION_RETCODE_SUCCESS) {
 			Led3(1);  //ECC108
 			if (++device_count >= DISCOVER_DEVICE_COUNT_MAX)
 				return device_count;
 		}
+		
+		i2c_status = DetectI2cCryptoAuth(0x6A & ~I2C_READ_FLAG);
+		if (i2c_status == I2C_FUNCTION_RETCODE_SUCCESS) {
+			Led3(1);  //ECC108
+			if (++device_count >= DISCOVER_DEVICE_COUNT_MAX)
+			return device_count;
+		}
+		
+		i2c_status = DetectI2cCryptoAuth(0xC0 & ~I2C_READ_FLAG);
+		if (i2c_status == I2C_FUNCTION_RETCODE_SUCCESS) {
+			Led3(1);  //ECC108
+			if (++device_count >= DISCOVER_DEVICE_COUNT_MAX)
+			return device_count;
+		}
+		
 		i2c_status = DetectI2cCryptoAuth(0xC8 & ~I2C_READ_FLAG);
 		if (i2c_status == I2C_FUNCTION_RETCODE_SUCCESS) {
 			Led1(1);  //SHA204
